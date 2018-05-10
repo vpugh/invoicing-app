@@ -8,4 +8,4 @@ Following the tutorials from [Scotch.io](https://scotch.io/)
 
 I've followed this tutorial, relying heavily on the [github page](https://github.com/christiannwamba/invoicing-app) for the pieces that aren't explained thoroughly in the tutorials.
 
-I've taken some liberaties with some parts of this app, mostly things relating to the look and some interaction related things.
+I've taken some liberties with some parts of this app, mostly things relating to the look and some interaction related things.
