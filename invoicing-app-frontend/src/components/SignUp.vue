@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Header v-bind:title="title" />
+    <Header />
 
     <div class="container">
 
     <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="pills-login-tab" data-toggle="pill" href="#pills-login" @click="formClear()" role="tab" aria-controls="pills-upload" aria-selected="true">Log in</a>
+            <a class="nav-link active" id="pills-login-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-upload" aria-selected="true">Log in</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-register-tab" data-toggle="pill" href="#pills-register" @click="formClear()" role="tab" aria-controls="pills-verify" aria-selected="false">Register</a>
+            <a class="nav-link" id="pills-register-tab" data-toggle="pill" href="#pills-register" role="tab" aria-controls="pills-verify" aria-selected="false">Register</a>
         </li>
     </ul>
 
@@ -30,8 +30,10 @@
                         
                         <div class="form-group">
                             <button class="btn btn-primary" >Login</button>
-                            {{ loading }}
-                            {{ status }}
+                            <div class="message-error">
+                                {{ loading }}
+                                {{ status }}
+                            </div>
                         </div>
                     </form> 
                 </div>
@@ -61,13 +63,15 @@
                         </div>
                         <div class="form-group">
                             <label for="">Confirm Password:</label>
-                            <input type="password" required class="form-control" placeholder="Confirm Passowrd" v-model="model.confirm_password">
+                            <input type="password" required class="form-control" placeholder="Confirm Password" v-model="model.confirm_password">
                         </div>
 
                         <div class="form-group">
                             <button class="btn btn-primary" >Register</button>
-                            {{ loading }}
-                            {{ status }}
+                            <div class="message-error">
+                                {{ loading }}
+                                {{ status }}
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -98,14 +102,13 @@ export default {
         company_name: ""
       },
       loading: "",
-      status: "",
-      title: "Invoicing App"
+      status: ""
     };
   },
   methods: {
     validate() {
       // checks all the form params are set and the passwords match
-      if( this.model.password != this.model.c_password){
+      if (this.model.password != this.model.c_password){
         return false;
       }
 
@@ -114,7 +117,7 @@ export default {
     register() {
       const formData = new FormData();
       let valid = this.validate();
-      if( valid){
+      if (valid){
         formData.append("name", this.model.name);
         formData.append("email", this.model.email);
         formData.append("company_name", this.model.company_name);
@@ -151,11 +154,11 @@ export default {
       // Post to server
       axios.post("http://localhost:3128/login", formData).then(res => {
         // Post a status message
-        console.log(res);
+        // console.log(res);
         this.loading = "";
         if (res.data.status == true) {
           // this.registerStatus = res.data.message;
-          console.log(res.data.user);
+        //   console.log(res.data.user);
           // now send the user to the next route
           this.$router.push({
             name: "Dashboard",
@@ -165,19 +168,6 @@ export default {
           this.status = res.data.message;
         }
       });
-    },
-    formClear() {
-        if( $('#pills-login-tab').attr('aria-controls') == 'pills-upload' && $('.nav-link').attr('aria-selected') != 'true') {
-            this.model.email = "";
-            this.model.password = "";
-        } else {
-            this.model.email = "";
-            this.model.password = "";
-            this.model.confirm_password = "";
-            this.model.company_name = "";
-            this.model.name = "";
-        }
-        
     }
   }
 };
@@ -199,5 +189,11 @@ li {
 }
 a {
   color: #426cb9;
+}
+/* .container {
+    margin-top: 60px;
+} */
+.message-error {
+    margin-top: 20px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="container-fluid body" style="padding: 0px;">
-    <Header v-bind:user="user" v-bind:open="open" v-bind:title="title"/>
+  <div class="container-fluid" style="padding: 0px;">
+    <Header v-bind:user="user"/>
     <template v-if="this.isactive == 'create'">
       <CreateInvoice />
     </template>
@@ -16,7 +16,6 @@ import CreateInvoice from "./CreateInvoice";
 import ViewInvoices from "./ViewInvoices";
 export default {
   name: "Dashboard",
-  props: ["open"],
   components: {
     Header,
     CreateInvoice,
@@ -31,13 +30,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.body {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-}
-</style>
